@@ -23,7 +23,10 @@ import java.time.LocalDateTime;
 @Table(
         name = "users",
         uniqueConstraints = {
-                @UniqueConstraint(name = "uk_users_email", columnNames = "email")
+                @UniqueConstraint(
+                        name = "uk_users_provider_email",
+                        columnNames = {"provider", "email"}
+                )
         }
 )
 @Getter
