@@ -139,10 +139,6 @@ public class OAuth2LoginService {
             OAuth2UserInfo userInfo,
             OAuth2ProviderToken providerToken
     ) {
-        if (userRepository.findByEmailForUpdate(userInfo.email()).isPresent()) {
-            throw new AuthException(AuthErrorCode.SOCIAL_ACCOUNT_LINK_REQUIRED);
-        }
-
         try {
             User user = userRepository.saveAndFlush(
                     User.createSocialUser(userInfo.email(), provider)

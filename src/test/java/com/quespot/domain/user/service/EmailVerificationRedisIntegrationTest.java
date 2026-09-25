@@ -3,6 +3,7 @@ package com.quespot.domain.user.service;
 import com.quespot.domain.user.dto.req.SendEmailVerificationCodeRequestDTO;
 import com.quespot.domain.user.dto.req.VerifyEmailCodeRequestDTO;
 import com.quespot.domain.user.enums.EmailVerificationPurpose;
+import com.quespot.domain.user.enums.LoginProvider;
 import com.quespot.domain.user.exception.AuthException;
 import com.quespot.domain.user.exception.code.AuthErrorCode;
 import com.quespot.domain.user.repository.UserRepository;
@@ -35,6 +36,7 @@ import java.util.regex.Pattern;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
@@ -103,7 +105,7 @@ class EmailVerificationRedisIntegrationTest {
                 "redis-integration-test-verification-code-secret"
         );
 
-        when(userRepository.existsByEmail(anyString())).thenReturn(false);
+        when(userRepository.existsByProviderAndEmail(eq(LoginProvider.EMAIL), anyString())).thenReturn(false);
     }
 
     @Test

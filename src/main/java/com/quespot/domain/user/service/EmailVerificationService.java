@@ -6,6 +6,7 @@ import com.quespot.domain.user.dto.req.VerifyEmailCodeRequestDTO;
 import com.quespot.domain.user.dto.res.SendEmailVerificationCodeResponseDTO;
 import com.quespot.domain.user.dto.res.VerifyEmailCodeResponseDTO;
 import com.quespot.domain.user.enums.EmailVerificationPurpose;
+import com.quespot.domain.user.enums.LoginProvider;
 import com.quespot.domain.user.exception.AuthException;
 import com.quespot.domain.user.exception.code.AuthErrorCode;
 import com.quespot.domain.user.repository.UserRepository;
@@ -128,7 +129,7 @@ public class EmailVerificationService {
     ) {
         String email = normalizeEmail(request.email());
 
-        if (userRepository.existsByEmail(email)) {
+        if (userRepository.existsByProviderAndEmail(LoginProvider.EMAIL, email)) {
             throw new AuthException(AuthErrorCode.DUPLICATE_EMAIL);
         }
 

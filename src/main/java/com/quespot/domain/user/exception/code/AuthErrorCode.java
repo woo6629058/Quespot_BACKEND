@@ -38,10 +38,6 @@ public enum AuthErrorCode implements BaseErrorCode {
             "AUTH_409_001",
             "이미 가입된 이메일입니다."),
 
-    SOCIAL_ACCOUNT_LINK_REQUIRED(HttpStatus.CONFLICT,
-            "AUTH_409_002",
-            "이미 다른 로그인 방식으로 가입된 이메일입니다. 기존 로그인 방식으로 로그인한 후 마이페이지에서 계정을 연결해주세요."),
-
     INVALID_LOGIN_CREDENTIALS(HttpStatus.UNAUTHORIZED,
             "AUTH_401_002",
             "이메일 또는 비밀번호가 올바르지 않습니다."),
@@ -88,7 +84,7 @@ public enum AuthErrorCode implements BaseErrorCode {
 
     SOCIAL_ACCOUNT_LINKED_TO_ANOTHER_USER(HttpStatus.CONFLICT,
             "AUTH_409_004",
-            "해당 소셜 계정은 다른 사용자에게 연결되어 있습니다."),
+            "이미 다른 회원으로 가입된 소셜 계정입니다."),
 
     LAST_LOGIN_METHOD_CANNOT_BE_UNLINKED(HttpStatus.CONFLICT,
             "AUTH_409_005",

@@ -50,7 +50,7 @@ public class AuthService {
             throw new AuthException(AuthErrorCode.PASSWORD_CONFIRMATION_MISMATCH);
         }
 
-        if (userRepository.existsByEmail(email)) {
+        if (userRepository.existsByProviderAndEmail(LoginProvider.EMAIL, email)) {
             throw new AuthException(AuthErrorCode.DUPLICATE_EMAIL);
         }
 
@@ -74,7 +74,7 @@ public class AuthService {
     @Transactional
     public LoginResultDTO login(LoginRequestDTO request) {
         String email = normalizeEmail(request.email());
-        User user = userRepository.findByEmailForUpdate(email)
+        User user = userRepository.findByProviderAndEmailForUpdate(LoginProvider.EMAIL, email)
                 .filter(this::isActiveEmailUser)
                 .filter(foundUser -> passwordEncoder.matches(request.password(), foundUser.getPassword()))
                 .orElseThrow(() -> new AuthException(AuthErrorCode.INVALID_LOGIN_CREDENTIALS));
